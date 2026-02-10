@@ -62,3 +62,58 @@
 | Sound | Web Audio API |
 
 ## 📁 Project Structure
+bookstore-chat-react/
+├── public/
+│ └── index.html
+├── src/
+│ ├── index.js # Entry point
+│ ├── index.css # Global styles + Tailwind
+│ ├── App.js # Routing + providers
+│ ├── components/
+│ │ ├── Chat/
+│ │ │ ├── ChatWindow.jsx # Main chat page
+│ │ │ ├── ChatMessage.jsx # Message bubbles
+│ │ │ ├── ChatInput.jsx # Input form
+│ │ │ ├── TypingIndicator.jsx # Typing dots
+│ │ │ ├── WelcomeScreen.jsx # Welcome view
+│ │ │ ├── QuickActions.jsx # Quick action buttons
+│ │ │ └── ErrorMessage.jsx # Error with retry
+│ │ ├── Admin/
+│ │ │ ├── AdminDashboard.jsx # Admin layout
+│ │ │ ├── Sidebar.jsx # Navigation sidebar
+│ │ │ ├── StatsCards.jsx # Dashboard stats
+│ │ │ ├── RecentActivity.jsx # Recent orders/chats
+│ │ │ ├── BooksTable.jsx # Books catalog
+│ │ │ ├── OrdersTable.jsx # Orders table
+│ │ │ ├── FaqList.jsx # FAQ display
+│ │ │ ├── Analytics.jsx # Analytics dashboard
+│ │ │ └── ChatLogs.jsx # Chat log viewer
+│ │ ├── Auth/
+│ │ │ └── LoginPage.jsx # Admin login
+│ │ └── Layout/
+│ │ ├── Header.jsx # Chat header
+│ │ └── Footer.jsx # Chat footer
+│ ├── hooks/
+│ │ ├── useChat.js # Chat logic
+│ │ ├── useAdmin.js # Admin logic
+│ │ ├── useSound.js # Sound system
+│ │ ├── useVoiceInput.js # Voice input
+│ │ └── useDarkMode.js # Dark mode
+│ ├── services/
+│ │ ├── chatService.js # Webhook + analytics
+│ │ └── mockResponseEngine.js # Local fallback
+│ ├── data/
+│ │ ├── booksData.js # 25 books
+│ │ ├── ordersData.js # 15 orders
+│ │ └── faqData.js # 8 FAQs
+│ ├── context/
+│ │ ├── ThemeContext.js # Dark mode
+│ │ └── AuthContext.js # Authentication
+│ └── utils/
+│ ├── formatMessage.js # Markdown formatter
+│ └── exportChat.js # Chat export
+├── n8n-workflows/
+│ └── bookstore-main.json # n8n workflow export
+├── tailwind.config.js
+├── package.json
+└── README.md

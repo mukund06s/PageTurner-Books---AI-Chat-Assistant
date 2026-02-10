@@ -1,0 +1,437 @@
+/* ============================================ */
+/* PageTurner Books - Immersive Theme           */
+/* ============================================ */
+/* Enhanced: Floating particles, glassmorphism, */
+/* gradient animations, micro-interactions,     */
+/* bookstore warmth meets modern elegance       */
+/* ============================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ==================== */
+/* CSS VARIABLES         */
+/* ==================== */
+:root {
+  --glow-purple: rgba(168, 85, 247, 0.4);
+  --glow-pink: rgba(236, 72, 153, 0.3);
+  --glow-amber: rgba(245, 158, 11, 0.3);
+  --glass-light: rgba(255, 255, 255, 0.6);
+  --glass-dark: rgba(15, 15, 30, 0.7);
+}
+
+/* ==================== */
+/* BASE                 */
+/* ==================== */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ==================== */
+/* ANIMATED BACKGROUND  */
+/* ==================== */
+.bg-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-animated::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 60% 60%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  animation: bgDrift 30s ease-in-out infinite alternate;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes bgDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -2%) rotate(1deg); }
+  66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+  100% { transform: translate(1%, -1%) rotate(0.5deg); }
+}
+
+/* Dark mode animated bg */
+.dark .bg-animated::before {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+}
+
+/* ==================== */
+/* FLOATING PARTICLES   */
+/* ==================== */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.12;
+  font-size: 1.5rem;
+  animation: particleFloat var(--duration, 20s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.08;
+  }
+  25% {
+    transform: translate(var(--tx1, 30px), var(--ty1, -50px)) rotate(15deg) scale(1.1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(var(--tx2, -20px), var(--ty2, -80px)) rotate(-10deg) scale(0.95);
+    opacity: 0.12;
+  }
+  75% {
+    transform: translate(var(--tx3, 15px), var(--ty3, -30px)) rotate(5deg) scale(1.05);
+    opacity: 0.1;
+  }
+}
+
+/* ==================== */
+/* GLASSMORPHISM        */
+/* ==================== */
+.glass {
+  background: var(--glass-light);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: var(--glass-dark);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .glass-strong {
+  background: rgba(15, 15, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== */
+/* GLOW EFFECTS         */
+/* ==================== */
+.glow-purple {
+  box-shadow: 0 0 20px var(--glow-purple), 0 0 60px rgba(168, 85, 247, 0.1);
+}
+
+.glow-amber {
+  box-shadow: 0 0 20px var(--glow-amber), 0 0 60px rgba(245, 158, 11, 0.1);
+}
+
+.glow-hover {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.glow-hover:hover {
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.25), 0 0 0 1px rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ==================== */
+/* CUSTOM SCROLLBAR     */
+/* ==================== */
+.chat-container::-webkit-scrollbar {
+  width: 5px;
+}
+.chat-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c084fc, #f472b6);
+  border-radius: 10px;
+}
+
+/* ==================== */
+/* TYPING DOTS          */
+/* ==================== */
+.typing-dot {
+  animation: pulseDot 1.4s infinite ease-in-out both;
+}
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes pulseDot {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* ==================== */
+/* MESSAGE BUBBLES      */
+/* ==================== */
+.msg-bot {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+}
+
+.dark .msg-bot {
+  background: linear-gradient(135deg, rgba(55,48,83,0.9), rgba(40,35,65,0.7));
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.msg-user {
+  background: linear-gradient(135deg, #7c3aed, #a855f7, #c084fc);
+  background-size: 200% 200%;
+  animation: gradientShimmer 3s ease infinite;
+}
+
+@keyframes gradientShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.msg-bot:hover, .msg-user:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* ==================== */
+/* GRADIENT BORDER      */
+/* ==================== */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, #a855f7, #ec4899, #f59e0b, #3b82f6, #a855f7);
+  background-size: 400% 400%;
+  border-radius: 1.25rem;
+  z-index: -1;
+  animation: borderGlow 6s ease infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+}
+
+/* ==================== */
+/* LOGIN CARD           */
+/* ==================== */
+.card-glow {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 25px 60px -12px rgba(0, 0, 0, 0.6),
+    0 0 100px -30px rgba(168, 85, 247, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== */
+/* BUTTON STYLES        */
+/* ==================== */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-glow:hover::before {
+  left: 100%;
+}
+
+.btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+}
+
+.btn-glow:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ==================== */
+/* QUICK ACTION CHIPS   */
+/* ==================== */
+.chip {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  background-size: 250% 250%;
+  animation: chipShine 3s ease-in-out infinite;
+}
+
+@keyframes chipShine {
+  0%, 100% { background-position: 200% 200%; }
+  50% { background-position: -50% -50%; }
+}
+
+.chip:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* ==================== */
+/* LOGO PULSE           */
+/* ==================== */
+.logo-container {
+  position: relative;
+}
+
+.logo-container::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 0.95rem;
+  background: linear-gradient(135deg, #f59e0b, #ef4444, #a855f7, #3b82f6);
+  background-size: 300% 300%;
+  animation: logoPulse 4s ease infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.logo-container:hover::after {
+  opacity: 0.6;
+}
+
+@keyframes logoPulse {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ==================== */
+/* INPUT FOCUS GLOW     */
+/* ==================== */
+.input-glow:focus {
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25), 0 0 20px rgba(168, 85, 247, 0.1);
+  border-color: #a855f7;
+}
+
+/* ==================== */
+/* SKELETON LOADER      */
+/* ==================== */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 37%, #f0f0f0 63%);
+  background-size: 400% 100%;
+  animation: skeletonWave 1.4s ease infinite;
+}
+
+@keyframes skeletonWave {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 37%, #374151 63%);
+  background-size: 400% 100%;
+}
+
+/* ==================== */
+/* SCROLL TO TOP BTN    */
+/* ==================== */
+.scroll-top-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+}
+
+/* ==================== */
+/* STAT CARD HOVER      */
+/* ==================== */
+.stat-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dark .stat-card:hover {
+  box-shadow: 0 12px 40px rgba(168, 85, 247, 0.15);
+}
+
+/* ==================== */
+/* TOAST OVERRIDES      */
+/* ==================== */
+.toast-custom {
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 1rem !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+/* ==================== */
+/* RESPONSIVE           */
+/* ==================== */
+@media (max-width: 640px) {
+  html { font-size: 14px; }
+  .particle { display: none; }
+}
+
+/* ==================== */
+/* REDUCED MOTION       */
+/* ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .particle { display: none; }
+  .bg-animated::before { animation: none; }
+}
+
+/* ==================== */
+/* PRINT                */
+/* ==================== */
+@media print {
+  .no-print { display: none !important; }
+  .particle { display: none !important; }
+}

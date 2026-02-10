@@ -1,0 +1,252 @@
+[
+  {
+    "id": "B001",
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "genre": "Self-Help",
+    "price": 499,
+    "stock": 25,
+    "description": "A proven framework for building good habits and breaking bad ones.",
+    "rating": 4.8
+  },
+  {
+    "id": "B002",
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "genre": "Fiction",
+    "price": 299,
+    "stock": 18,
+    "description": "A philosophical novel about following your dreams and personal legend.",
+    "rating": 4.6
+  },
+  {
+    "id": "B003",
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "genre": "Fantasy",
+    "price": 399,
+    "stock": 30,
+    "description": "The beginning of Harry's magical journey at Hogwarts.",
+    "rating": 4.9
+  },
+  {
+    "id": "B004",
+    "title": "Harry Potter and the Chamber of Secrets",
+    "author": "J.K. Rowling",
+    "genre": "Fantasy",
+    "price": 399,
+    "stock": 22,
+    "description": "Harry returns to Hogwarts and uncovers the mystery of the Chamber of Secrets.",
+    "rating": 4.8
+  },
+  {
+    "id": "B005",
+    "title": "Rich Dad Poor Dad",
+    "author": "Robert Kiyosaki",
+    "genre": "Finance",
+    "price": 350,
+    "stock": 15,
+    "description": "Personal finance lessons through the story of two fathers.",
+    "rating": 4.5
+  },
+  {
+    "id": "B006",
+    "title": "Deep Work",
+    "author": "Cal Newport",
+    "genre": "Productivity",
+    "price": 450,
+    "stock": 12,
+    "description": "Rules for focused success in a distracted world.",
+    "rating": 4.6
+  },
+  {
+    "id": "B007",
+    "title": "Ikigai",
+    "author": "Hector Garcia",
+    "genre": "Self-Help",
+    "price": 320,
+    "stock": 20,
+    "description": "The Japanese secret to a long and happy life.",
+    "rating": 4.5
+  },
+  {
+    "id": "B008",
+    "title": "The Psychology of Money",
+    "author": "Morgan Housel",
+    "genre": "Finance",
+    "price": 410,
+    "stock": 17,
+    "description": "Timeless lessons on wealth, greed, and happiness.",
+    "rating": 4.7
+  },
+  {
+    "id": "B009",
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "genre": "History",
+    "price": 550,
+    "stock": 10,
+    "description": "A brief history of humankind from the Stone Age to the present.",
+    "rating": 4.7
+  },
+  {
+    "id": "B010",
+    "title": "The Power of Now",
+    "author": "Eckhart Tolle",
+    "genre": "Spirituality",
+    "price": 380,
+    "stock": 9,
+    "description": "A guide to spiritual enlightenment and living in the present moment.",
+    "rating": 4.4
+  },
+  {
+    "id": "B011",
+    "title": "Think and Grow Rich",
+    "author": "Napoleon Hill",
+    "genre": "Finance",
+    "price": 280,
+    "stock": 14,
+    "description": "Classic principles of personal achievement and financial success.",
+    "rating": 4.5
+  },
+  {
+    "id": "B012",
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy",
+    "price": 420,
+    "stock": 16,
+    "description": "Bilbo Baggins' unexpected adventure with dwarves and a dragon.",
+    "rating": 4.8
+  },
+  {
+    "id": "B013",
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "genre": "Fiction",
+    "price": 300,
+    "stock": 11,
+    "description": "A powerful story of racial injustice and moral growth.",
+    "rating": 4.8
+  },
+  {
+    "id": "B014",
+    "title": "1984",
+    "author": "George Orwell",
+    "genre": "Fiction",
+    "price": 310,
+    "stock": 8,
+    "description": "A dystopian masterpiece about totalitarianism and surveillance.",
+    "rating": 4.7
+  },
+  {
+    "id": "B015",
+    "title": "The Subtle Art of Not Giving a F*ck",
+    "author": "Mark Manson",
+    "genre": "Self-Help",
+    "price": 360,
+    "stock": 19,
+    "description": "A counterintuitive approach to living a good life.",
+    "rating": 4.4
+  },
+  {
+    "id": "B016",
+    "title": "Zero to One",
+    "author": "Peter Thiel",
+    "genre": "Business",
+    "price": 470,
+    "stock": 7,
+    "description": "Notes on startups, or how to build the future.",
+    "rating": 4.5
+  },
+  {
+    "id": "B017",
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "genre": "Business",
+    "price": 520,
+    "stock": 13,
+    "description": "How today's entrepreneurs use continuous innovation.",
+    "rating": 4.4
+  },
+  {
+    "id": "B018",
+    "title": "Can't Hurt Me",
+    "author": "David Goggins",
+    "genre": "Biography",
+    "price": 480,
+    "stock": 6,
+    "description": "Master your mind and defy the odds with mental toughness.",
+    "rating": 4.8
+  },
+  {
+    "id": "B019",
+    "title": "The Silent Patient",
+    "author": "Alex Michaelides",
+    "genre": "Thriller",
+    "price": 340,
+    "stock": 21,
+    "description": "A shocking psychological thriller about a woman's act of violence.",
+    "rating": 4.5
+  },
+  {
+    "id": "B020",
+    "title": "Atomic Habits Workbook",
+    "author": "James Clear",
+    "genre": "Self-Help",
+    "price": 250,
+    "stock": 24,
+    "description": "Practical exercises to build better habits with the Atomic Habits system.",
+    "rating": 4.6
+  },
+  {
+    "id": "B021",
+    "title": "Dune",
+    "author": "Frank Herbert",
+    "genre": "Sci-Fi",
+    "price": 600,
+    "stock": 10,
+    "description": "An epic science fiction saga set on the desert planet Arrakis.",
+    "rating": 4.7
+  },
+  {
+    "id": "B022",
+    "title": "Project Hail Mary",
+    "author": "Andy Weir",
+    "genre": "Sci-Fi",
+    "price": 520,
+    "stock": 12,
+    "description": "A lone astronaut must save the earth from disaster.",
+    "rating": 4.8
+  },
+  {
+    "id": "B023",
+    "title": "The Name of the Wind",
+    "author": "Patrick Rothfuss",
+    "genre": "Fantasy",
+    "price": 580,
+    "stock": 5,
+    "description": "The epic tale of Kvothe, a legendary figure told in his own voice.",
+    "rating": 4.7
+  },
+  {
+    "id": "B024",
+    "title": "The Girl with the Dragon Tattoo",
+    "author": "Stieg Larsson",
+    "genre": "Thriller",
+    "price": 410,
+    "stock": 14,
+    "description": "A gripping mystery combining murder investigation and family secrets.",
+    "rating": 4.5
+  },
+  {
+    "id": "B025",
+    "title": "Educated",
+    "author": "Tara Westover",
+    "genre": "Biography",
+    "price": 390,
+    "stock": 9,
+    "description": "A memoir about growing up in a survivalist family and the transformative power of education.",
+    "rating": 4.7
+  }
+]

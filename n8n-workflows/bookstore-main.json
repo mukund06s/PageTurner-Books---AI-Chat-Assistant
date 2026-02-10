@@ -1,0 +1,223 @@
+{
+  "name": "Bookstore Chat Assistant - Updated",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "bookstore-chat",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "bookstore-chat"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// INTENT DETECTION - Updated for New Dataset\n// ============================================\n// Detects: order, recommend, category, faq,\n// browse, greeting, or fallback\n// Order IDs: O1001-O1015 format\n// Genres: Self-Help, Fiction, Fantasy, Finance,\n// Productivity, History, Spirituality, Business,\n// Biography, Thriller, Sci-Fi\n// ============================================\n\nconst text = ($json.body?.message || '').toLowerCase();\nconst sessionId = $json.body?.sessionId || null;\nconst context = $json.body?.context || {};\n\nlet intent = 'fallback';\n\n// Order tracking - check first (highest priority)\n// Matches: O1001, o1002, track order, order status, etc.\nif (/track|order status|where is my order|o\\d{4}|order.*o\\d/i.test(text)) {\n  intent = 'order';\n}\n// Recommendations\nelse if (/recommend|suggest|what should i read|popular books|best book|good book/i.test(text)) {\n  intent = 'recommend';\n}\n// Genre/Category browsing\nelse if (/self-help|self help|fiction|fantasy|finance|productivity|history|spirituality|business|biography|thriller|sci-fi|science fiction|genre|genres|categor/i.test(text)) {\n  intent = 'category';\n}\n// FAQ queries\nelse if (/deliver|shipping|charges|cancel|refund|return|payment|pay|cod|cash on delivery|how long|track my/i.test(text)) {\n  intent = 'faq';\n}\n// Browse/Search catalog\nelse if (/browse|search|show|list|book|books|catalog|available|all books|what do you have/i.test(text)) {\n  intent = 'browse';\n}\n// Greeting\nelse if (/^(hello|hi|hey|help|good morning|good afternoon|good evening|namaste)$/i.test(text.trim()) || /hello|hi |hey |help me/i.test(text)) {\n  intent = 'greeting';\n}\n\nreturn [{\n  json: {\n    intent,\n    message: text,\n    originalMessage: $json.body?.message || '',\n    sessionId,\n    context\n  }\n}];"
+      },
+      "id": "intent-detection",
+      "name": "Intent Detection",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "outputKey": "order",
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [{ "id": "c1", "leftValue": "={{ $json.intent }}", "rightValue": "order", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              }
+            },
+            {
+              "outputKey": "browse",
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [{ "id": "c2", "leftValue": "={{ $json.intent }}", "rightValue": "browse", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              }
+            },
+            {
+              "outputKey": "faq",
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [{ "id": "c3", "leftValue": "={{ $json.intent }}", "rightValue": "faq", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              }
+            },
+            {
+              "outputKey": "recommend",
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [{ "id": "c4", "leftValue": "={{ $json.intent }}", "rightValue": "recommend", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              }
+            },
+            {
+              "outputKey": "category",
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [{ "id": "c5", "leftValue": "={{ $json.intent }}", "rightValue": "category", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              }
+            },
+            {
+              "outputKey": "greeting",
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [{ "id": "c6", "leftValue": "={{ $json.intent }}", "rightValue": "greeting", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              }
+            }
+          ],
+          "fallbackOutput": "fallback"
+        },
+        "options": {}
+      },
+      "id": "intent-router",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [690, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ORDER HANDLER - 15 Orders (O1001-O1015)\n// ============================================\nconst msg = $input.first().json.message || '';\n\nconst orders = [\n  { id: 'O1001', customer: 'Rahul Sharma', book: 'Atomic Habits', qty: 1, total: 499, status: 'Shipped', orderDate: '2026-02-01', deliveryDate: '2026-02-05' },\n  { id: 'O1002', customer: 'Priya Patel', book: \"Harry Potter and the Sorcerer's Stone\", qty: 2, total: 798, status: 'Delivered', orderDate: '2026-01-28', deliveryDate: '2026-02-02' },\n  { id: 'O1003', customer: 'Amit Verma', book: 'The Psychology of Money', qty: 1, total: 410, status: 'Processing', orderDate: '2026-02-03', deliveryDate: null },\n  { id: 'O1004', customer: 'Neha Singh', book: '1984', qty: 1, total: 310, status: 'Delivered', orderDate: '2026-01-25', deliveryDate: '2026-01-30' },\n  { id: 'O1005', customer: 'Karan Mehta', book: 'Dune', qty: 1, total: 600, status: 'Shipped', orderDate: '2026-02-02', deliveryDate: '2026-02-07' },\n  { id: 'O1006', customer: 'Sneha Iyer', book: 'Rich Dad Poor Dad', qty: 3, total: 1050, status: 'Processing', orderDate: '2026-02-04', deliveryDate: null },\n  { id: 'O1007', customer: 'Arjun Rao', book: 'The Hobbit', qty: 1, total: 420, status: 'Cancelled', orderDate: '2026-01-29', deliveryDate: null },\n  { id: 'O1008', customer: 'Meera Joshi', book: 'The Silent Patient', qty: 2, total: 680, status: 'Delivered', orderDate: '2026-01-30', deliveryDate: '2026-02-03' },\n  { id: 'O1009', customer: 'Vikas Nair', book: 'The Lean Startup', qty: 1, total: 520, status: 'Shipped', orderDate: '2026-02-01', deliveryDate: '2026-02-06' },\n  { id: 'O1010', customer: 'Pooja Das', book: \"The Subtle Art of Not Giving a F*ck\", qty: 1, total: 360, status: 'Processing', orderDate: '2026-02-04', deliveryDate: null },\n  { id: 'O1011', customer: 'Ankit Jain', book: 'The Alchemist', qty: 1, total: 299, status: 'Delivered', orderDate: '2026-01-27', deliveryDate: '2026-01-31' },\n  { id: 'O1012', customer: 'Ritu Kapoor', book: 'The Name of the Wind', qty: 1, total: 580, status: 'Shipped', orderDate: '2026-02-02', deliveryDate: '2026-02-08' },\n  { id: 'O1013', customer: 'Manish Yadav', book: 'The Power of Now', qty: 1, total: 380, status: 'Delivered', orderDate: '2026-01-26', deliveryDate: '2026-01-30' },\n  { id: 'O1014', customer: 'Kavya Reddy', book: 'Project Hail Mary', qty: 2, total: 1040, status: 'Processing', orderDate: '2026-02-04', deliveryDate: null },\n  { id: 'O1015', customer: 'Deepak Gupta', book: \"Can't Hurt Me\", qty: 1, total: 480, status: 'Shipped', orderDate: '2026-02-03', deliveryDate: '2026-02-09' }\n];\n\nconst orderMatch = msg.match(/o\\d{4}/i);\nlet reply;\n\nif (orderMatch) {\n  const orderId = orderMatch[0].toUpperCase();\n  const order = orders.find(o => o.id === orderId);\n  \n  if (order) {\n    const emoji = { 'Delivered': '✅', 'Shipped': '🚚', 'Processing': '📦', 'Cancelled': '❌' };\n    reply = `📦 **Order Status: ${order.id}**\\n\\n`;\n    reply += `${emoji[order.status] || '📋'} **Status:** ${order.status}\\n`;\n    reply += `• **Customer:** ${order.customer}\\n`;\n    reply += `• **Book:** ${order.book}\\n`;\n    reply += `• **Quantity:** ${order.qty}\\n`;\n    reply += `• **Total:** ₹${order.total}\\n`;\n    reply += `• **Order Date:** ${order.orderDate}\\n`;\n    if (order.deliveryDate) {\n      reply += `• **Delivery Date:** ${order.deliveryDate}\\n`;\n    } else if (order.status === 'Processing') {\n      reply += `• **Delivery:** Estimated 3-5 working days after shipping\\n`;\n    } else if (order.status === 'Cancelled') {\n      reply += `• **Note:** This order has been cancelled\\n`;\n    }\n    reply += `\\nNeed help with anything else?`;\n  } else {\n    reply = `❓ Order **${orderId}** not found.\\n\\nValid order IDs: O1001 to O1015\\n\\n**Example:** \"Track order O1001\"`;\n  }\n} else {\n  reply = `📋 **Order Tracking**\\n\\nPlease provide your order ID to track.\\n\\n**Example:** \"Track order O1001\"\\n\\nValid IDs: O1001 - O1015`;\n}\n\nreturn [{ json: { reply, intent: 'order' } }];"
+      },
+      "id": "order-handler",
+      "name": "Order Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 60]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// BROWSE HANDLER - 25 Books Catalog\n// ============================================\nconst books = [\n  { id: 'B001', title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', price: 499, stock: 25 },\n  { id: 'B002', title: 'The Alchemist', author: 'Paulo Coelho', genre: 'Fiction', price: 299, stock: 18 },\n  { id: 'B003', title: \"Harry Potter and the Sorcerer's Stone\", author: 'J.K. Rowling', genre: 'Fantasy', price: 399, stock: 30 },\n  { id: 'B004', title: 'Harry Potter and the Chamber of Secrets', author: 'J.K. Rowling', genre: 'Fantasy', price: 399, stock: 22 },\n  { id: 'B005', title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', genre: 'Finance', price: 350, stock: 15 },\n  { id: 'B006', title: 'Deep Work', author: 'Cal Newport', genre: 'Productivity', price: 450, stock: 12 },\n  { id: 'B007', title: 'Ikigai', author: 'Hector Garcia', genre: 'Self-Help', price: 320, stock: 20 },\n  { id: 'B008', title: 'The Psychology of Money', author: 'Morgan Housel', genre: 'Finance', price: 410, stock: 17 },\n  { id: 'B009', title: 'Sapiens', author: 'Yuval Noah Harari', genre: 'History', price: 550, stock: 10 },\n  { id: 'B010', title: 'The Power of Now', author: 'Eckhart Tolle', genre: 'Spirituality', price: 380, stock: 9 },\n  { id: 'B011', title: 'Think and Grow Rich', author: 'Napoleon Hill', genre: 'Finance', price: 280, stock: 14 },\n  { id: 'B012', title: 'The Hobbit', author: 'J.R.R. Tolkien', genre: 'Fantasy', price: 420, stock: 16 },\n  { id: 'B013', title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction', price: 300, stock: 11 },\n  { id: 'B014', title: '1984', author: 'George Orwell', genre: 'Fiction', price: 310, stock: 8 },\n  { id: 'B015', title: \"The Subtle Art of Not Giving a F*ck\", author: 'Mark Manson', genre: 'Self-Help', price: 360, stock: 19 },\n  { id: 'B016', title: 'Zero to One', author: 'Peter Thiel', genre: 'Business', price: 470, stock: 7 },\n  { id: 'B017', title: 'The Lean Startup', author: 'Eric Ries', genre: 'Business', price: 520, stock: 13 },\n  { id: 'B018', title: \"Can't Hurt Me\", author: 'David Goggins', genre: 'Biography', price: 480, stock: 6 },\n  { id: 'B019', title: 'The Silent Patient', author: 'Alex Michaelides', genre: 'Thriller', price: 340, stock: 21 },\n  { id: 'B020', title: 'Atomic Habits Workbook', author: 'James Clear', genre: 'Self-Help', price: 250, stock: 24 },\n  { id: 'B021', title: 'Dune', author: 'Frank Herbert', genre: 'Sci-Fi', price: 600, stock: 10 },\n  { id: 'B022', title: 'Project Hail Mary', author: 'Andy Weir', genre: 'Sci-Fi', price: 520, stock: 12 },\n  { id: 'B023', title: 'The Name of the Wind', author: 'Patrick Rothfuss', genre: 'Fantasy', price: 580, stock: 5 },\n  { id: 'B024', title: 'The Girl with the Dragon Tattoo', author: 'Stieg Larsson', genre: 'Thriller', price: 410, stock: 14 },\n  { id: 'B025', title: 'Educated', author: 'Tara Westover', genre: 'Biography', price: 390, stock: 9 }\n];\n\nconst msg = $input.first().json.message || '';\n\n// Try to search by title or author\nconst results = books.filter(b => {\n  const title = b.title.toLowerCase();\n  const author = b.author.toLowerCase();\n  return msg.split(' ').some(w => w.length > 3 && (title.includes(w) || author.includes(w)));\n});\n\nlet reply;\n\nif (results.length > 0 && results.length < books.length) {\n  reply = `🔍 **Search Results** (${results.length} found)\\n\\n`;\n  results.forEach((b, i) => {\n    const stock = b.stock > 10 ? '✅ In Stock' : b.stock > 0 ? `⚠️ ${b.stock} left` : '❌ Out';\n    reply += `${i+1}. **${b.title}** by ${b.author}\\n   ${b.genre} • ₹${b.price} • ${stock}\\n\\n`;\n  });\n} else {\n  // Show catalog summary\n  const genres = {};\n  books.forEach(b => { genres[b.genre] = (genres[b.genre] || 0) + 1; });\n  const emojis = { 'Self-Help': '🧠', 'Fiction': '📖', 'Fantasy': '🐉', 'Finance': '💰', 'Productivity': '⚡', 'History': '🏛️', 'Spirituality': '🧘', 'Business': '💼', 'Biography': '👤', 'Thriller': '🔍', 'Sci-Fi': '🚀' };\n\n  reply = `📚 **Our Book Catalog** (${books.length} titles)\\n\\n`;\n  for (const [g, c] of Object.entries(genres)) {\n    reply += `${emojis[g] || '📚'} **${g}**: ${c} book${c > 1 ? 's' : ''}\\n`;\n  }\n  reply += `\\n**Featured Books:**\\n\\n`;\n  books.slice(0, 6).forEach((b, i) => {\n    reply += `${i+1}. **${b.title}** by ${b.author}\\n   ₹${b.price} • ${b.genre} • ${b.stock > 0 ? '✅ In Stock' : '❌ Out'}\\n\\n`;\n  });\n  reply += `Ask about a specific genre or book for more details!`;\n}\n\nreturn [{ json: { reply, intent: 'browse' } }];"
+      },
+      "id": "browse-handler",
+      "name": "Browse Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// FAQ HANDLER - 8 FAQs with keyword matching\n// ============================================\nconst msg = $input.first().json.message || '';\n\nconst faqs = [\n  { q: 'What are your delivery charges?', a: 'Delivery is free for orders above ₹499. For orders below ₹499, a flat delivery fee of ₹49 is charged.', kw: ['delivery', 'charges', 'shipping', 'cost', 'fee', 'free delivery'] },\n  { q: 'How long does delivery take?', a: 'Orders are delivered within 3-5 working days. Express delivery (1-2 days) is available for select locations.', kw: ['how long', 'delivery time', 'days', 'when', 'arrive', 'shipping time'] },\n  { q: 'Can I cancel my order?', a: 'Yes, you can cancel before it is shipped. Once shipped, you can return it after delivery.', kw: ['cancel', 'cancellation', 'stop order'] },\n  { q: 'Do you offer refunds?', a: 'Yes, refunds are processed within 5-7 business days after we receive the returned item.', kw: ['refund', 'money back', 'return'] },\n  { q: 'What payment methods are accepted?', a: 'We accept UPI (GPay, PhonePe, Paytm), credit/debit cards, net banking, and wallets.', kw: ['payment', 'pay', 'upi', 'card', 'net banking', 'method'] },\n  { q: 'Do you have cash on delivery?', a: 'Yes, COD is available for most locations across India. COD orders have a ₹20 additional fee.', kw: ['cod', 'cash on delivery', 'cash'] },\n  { q: 'How can I track my order?', a: 'Provide your order ID (e.g., O1001) in the chat and I\\'ll fetch the status instantly!', kw: ['track', 'tracking', 'where', 'status'] },\n  { q: 'What genres are available?', a: 'We offer Fiction, Fantasy, Finance, Business, Self-Help, Thriller, History, Biography, Sci-Fi, Productivity, and Spirituality.', kw: ['genre', 'genres', 'category', 'categories', 'type'] }\n];\n\nlet best = null;\nlet maxScore = 0;\n\nfor (const faq of faqs) {\n  let score = 0;\n  for (const kw of faq.kw) {\n    if (msg.includes(kw)) score++;\n  }\n  if (score > maxScore) {\n    maxScore = score;\n    best = faq;\n  }\n}\n\nlet reply;\nif (best && maxScore > 0) {\n  reply = `❓ **${best.q}**\\n\\n${best.a}\\n\\n---\\nHave another question? Just ask!`;\n} else {\n  reply = `❓ **Frequently Asked Questions**\\n\\nI can help with:\\n\\n🚚 Delivery charges & time\\n❌ Order cancellation\\n💰 Refunds & returns\\n💳 Payment methods\\n📦 COD availability\\n📋 Order tracking\\n🏷️ Available genres\\n\\nJust ask your question!`;\n}\n\nreturn [{ json: { reply, intent: 'faq' } }];"
+      },
+      "id": "faq-handler",
+      "name": "Faq Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 340]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// RECOMMENDATION HANDLER\n// ============================================\nconst msg = $input.first().json.message || '';\n\nconst books = [\n  { title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', price: 499, rating: 4.8, desc: 'Build good habits, break bad ones.' },\n  { title: 'The Alchemist', author: 'Paulo Coelho', genre: 'Fiction', price: 299, rating: 4.6, desc: 'Follow your dreams and personal legend.' },\n  { title: \"Harry Potter and the Sorcerer's Stone\", author: 'J.K. Rowling', genre: 'Fantasy', price: 399, rating: 4.9, desc: 'The beginning of a magical journey.' },\n  { title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', genre: 'Finance', price: 350, rating: 4.5, desc: 'Finance lessons from two fathers.' },\n  { title: 'Deep Work', author: 'Cal Newport', genre: 'Productivity', price: 450, rating: 4.6, desc: 'Rules for focused success.' },\n  { title: 'Sapiens', author: 'Yuval Noah Harari', genre: 'History', price: 550, rating: 4.7, desc: 'A brief history of humankind.' },\n  { title: 'The Power of Now', author: 'Eckhart Tolle', genre: 'Spirituality', price: 380, rating: 4.4, desc: 'Living in the present moment.' },\n  { title: 'Zero to One', author: 'Peter Thiel', genre: 'Business', price: 470, rating: 4.5, desc: 'How to build the future.' },\n  { title: \"Can't Hurt Me\", author: 'David Goggins', genre: 'Biography', price: 480, rating: 4.8, desc: 'Master your mind.' },\n  { title: 'The Silent Patient', author: 'Alex Michaelides', genre: 'Thriller', price: 340, rating: 4.5, desc: 'A shocking psychological thriller.' },\n  { title: 'Dune', author: 'Frank Herbert', genre: 'Sci-Fi', price: 600, rating: 4.7, desc: 'Epic saga on planet Arrakis.' },\n  { title: 'The Hobbit', author: 'J.R.R. Tolkien', genre: 'Fantasy', price: 420, rating: 4.8, desc: 'An unexpected adventure.' },\n  { title: 'Project Hail Mary', author: 'Andy Weir', genre: 'Sci-Fi', price: 520, rating: 4.8, desc: 'Save earth from disaster.' },\n  { title: 'The Psychology of Money', author: 'Morgan Housel', genre: 'Finance', price: 410, rating: 4.7, desc: 'Lessons on wealth and happiness.' }\n];\n\nconst genreMap = { 'self-help': 'Self-Help', 'self help': 'Self-Help', 'fiction': 'Fiction', 'fantasy': 'Fantasy', 'finance': 'Finance', 'productivity': 'Productivity', 'history': 'History', 'spirituality': 'Spirituality', 'business': 'Business', 'biography': 'Biography', 'thriller': 'Thriller', 'sci-fi': 'Sci-Fi', 'science fiction': 'Sci-Fi' };\nconst emojis = { 'Self-Help': '🧠', 'Fiction': '📖', 'Fantasy': '🐉', 'Finance': '💰', 'Productivity': '⚡', 'History': '🏛️', 'Spirituality': '🧘', 'Business': '💼', 'Biography': '👤', 'Thriller': '🔍', 'Sci-Fi': '🚀' };\n\nlet genre = null;\nfor (const [kw, g] of Object.entries(genreMap)) {\n  if (msg.includes(kw)) { genre = g; break; }\n}\n\nlet recs;\nif (genre) {\n  recs = books.filter(b => b.genre === genre).sort((a, b) => b.rating - a.rating).slice(0, 3);\n} else {\n  recs = [...books].sort((a, b) => b.rating - a.rating).slice(0, 4);\n}\n\nconst emoji = genre ? (emojis[genre] || '📚') : '⭐';\nlet reply = `${emoji} **${genre ? genre + ' ' : ''}Recommendations**\\n\\n`;\nif (genre) reply += `Top picks in **${genre}**:\\n\\n`;\nelse reply += `Our highest-rated books:\\n\\n`;\n\nrecs.forEach((b, i) => {\n  reply += `**${i+1}. ${b.title}**\\n`;\n  reply += `   👤 ${b.author} • ⭐ ${b.rating}/5 • ₹${b.price}\\n`;\n  reply += `   📝 ${b.desc}\\n\\n`;\n});\n\nreply += `💡 Want a specific genre? Try: \"Recommend thriller\" or \"Suggest finance books\"`;\n\nreturn [{ json: { reply, intent: 'recommend' } }];"
+      },
+      "id": "recommend-handler",
+      "name": "Recommendation Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 480]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// CATEGORY HANDLER - 11 Genres\n// ============================================\nconst msg = $input.first().json.message || '';\n\nconst books = [\n  { title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', price: 499, stock: 25 },\n  { title: 'The Alchemist', author: 'Paulo Coelho', genre: 'Fiction', price: 299, stock: 18 },\n  { title: \"Harry Potter and the Sorcerer's Stone\", author: 'J.K. Rowling', genre: 'Fantasy', price: 399, stock: 30 },\n  { title: 'Harry Potter and the Chamber of Secrets', author: 'J.K. Rowling', genre: 'Fantasy', price: 399, stock: 22 },\n  { title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', genre: 'Finance', price: 350, stock: 15 },\n  { title: 'Deep Work', author: 'Cal Newport', genre: 'Productivity', price: 450, stock: 12 },\n  { title: 'Ikigai', author: 'Hector Garcia', genre: 'Self-Help', price: 320, stock: 20 },\n  { title: 'The Psychology of Money', author: 'Morgan Housel', genre: 'Finance', price: 410, stock: 17 },\n  { title: 'Sapiens', author: 'Yuval Noah Harari', genre: 'History', price: 550, stock: 10 },\n  { title: 'The Power of Now', author: 'Eckhart Tolle', genre: 'Spirituality', price: 380, stock: 9 },\n  { title: 'Think and Grow Rich', author: 'Napoleon Hill', genre: 'Finance', price: 280, stock: 14 },\n  { title: 'The Hobbit', author: 'J.R.R. Tolkien', genre: 'Fantasy', price: 420, stock: 16 },\n  { title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction', price: 300, stock: 11 },\n  { title: '1984', author: 'George Orwell', genre: 'Fiction', price: 310, stock: 8 },\n  { title: \"The Subtle Art of Not Giving a F*ck\", author: 'Mark Manson', genre: 'Self-Help', price: 360, stock: 19 },\n  { title: 'Zero to One', author: 'Peter Thiel', genre: 'Business', price: 470, stock: 7 },\n  { title: 'The Lean Startup', author: 'Eric Ries', genre: 'Business', price: 520, stock: 13 },\n  { title: \"Can't Hurt Me\", author: 'David Goggins', genre: 'Biography', price: 480, stock: 6 },\n  { title: 'The Silent Patient', author: 'Alex Michaelides', genre: 'Thriller', price: 340, stock: 21 },\n  { title: 'Atomic Habits Workbook', author: 'James Clear', genre: 'Self-Help', price: 250, stock: 24 },\n  { title: 'Dune', author: 'Frank Herbert', genre: 'Sci-Fi', price: 600, stock: 10 },\n  { title: 'Project Hail Mary', author: 'Andy Weir', genre: 'Sci-Fi', price: 520, stock: 12 },\n  { title: 'The Name of the Wind', author: 'Patrick Rothfuss', genre: 'Fantasy', price: 580, stock: 5 },\n  { title: 'The Girl with the Dragon Tattoo', author: 'Stieg Larsson', genre: 'Thriller', price: 410, stock: 14 },\n  { title: 'Educated', author: 'Tara Westover', genre: 'Biography', price: 390, stock: 9 }\n];\n\nconst genreMap = { 'self-help': 'Self-Help', 'self help': 'Self-Help', 'fiction': 'Fiction', 'fantasy': 'Fantasy', 'finance': 'Finance', 'productivity': 'Productivity', 'history': 'History', 'spirituality': 'Spirituality', 'business': 'Business', 'biography': 'Biography', 'thriller': 'Thriller', 'sci-fi': 'Sci-Fi', 'science fiction': 'Sci-Fi' };\nconst emojis = { 'Self-Help': '🧠', 'Fiction': '📖', 'Fantasy': '🐉', 'Finance': '💰', 'Productivity': '⚡', 'History': '🏛️', 'Spirituality': '🧘', 'Business': '💼', 'Biography': '👤', 'Thriller': '🔍', 'Sci-Fi': '🚀' };\n\nlet genre = null;\nfor (const [kw, g] of Object.entries(genreMap)) {\n  if (msg.includes(kw)) { genre = g; break; }\n}\n\nlet reply;\n\nif (genre) {\n  const genreBooks = books.filter(b => b.genre === genre);\n  const emoji = emojis[genre] || '📚';\n  reply = `${emoji} **${genre} Books** (${genreBooks.length} titles)\\n\\n`;\n  genreBooks.forEach((b, i) => {\n    const stock = b.stock > 10 ? '✅' : b.stock > 0 ? '⚠️' : '❌';\n    reply += `${i+1}. **${b.title}**\\n   👤 ${b.author} • ₹${b.price} ${stock}\\n\\n`;\n  });\n  reply += `Want details about any book or explore another genre?`;\n} else {\n  const genres = {};\n  books.forEach(b => { genres[b.genre] = (genres[b.genre] || 0) + 1; });\n  reply = `📚 **Available Genres** (${Object.keys(genres).length} categories)\\n\\n`;\n  for (const [g, c] of Object.entries(genres)) {\n    reply += `${emojis[g] || '📚'} **${g}**: ${c} book${c > 1 ? 's' : ''}\\n`;\n  }\n  reply += `\\nTell me which genre to explore!\\n**Example:** \"Show me fantasy books\"`;\n}\n\nreturn [{ json: { reply, intent: 'category' } }];"
+      },
+      "id": "category-handler",
+      "name": "Category Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 620]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// GREETING HANDLER\n// ============================================\nconst reply = `👋 **Hello! Welcome to PageTurner Books!**\\n\\nI'm your AI assistant, here to help you discover your next great read!\\n\\n**What can I help you with today?**\\n\\n📚 **Browse Books** — \"Show me all available books\"\\n🔍 **Search** — \"Find books by Tolkien\"\\n📦 **Track Order** — \"Track order O1001\"\\n⭐ **Recommendations** — \"Suggest a self-help book\"\\n🏷️ **Genres** — \"What genres are available?\"\\n❓ **FAQ** — \"What are your delivery charges?\"\\n\\nJust type your question!`;\n\nreturn [{ json: { reply, intent: 'greeting' } }];"
+      },
+      "id": "greeting-handler",
+      "name": "Greeting Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 760]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// FALLBACK HANDLER\n// ============================================\nconst originalMsg = $input.first().json.originalMessage || 'your message';\n\nconst reply = `🤔 I'm not quite sure how to help with that.\\n\\nI understood: \"${originalMsg.substring(0, 50)}${originalMsg.length > 50 ? '...' : ''}\"\\n\\n**Here's what I can assist with:**\\n\\n📚 **Books** — Browse our catalog of 25 books\\n📦 **Orders** — Track with order ID (e.g., O1001)\\n⭐ **Recommendations** — Get personalized suggestions\\n🏷️ **Genres** — Self-Help, Fiction, Fantasy & more\\n❓ **FAQ** — Delivery, payments, returns\\n\\n**Try asking:**\\n• \"Show me all available books\"\\n• \"Track order O1001\"\\n• \"Recommend a fantasy book\"\\n• \"What are your delivery charges?\"\\n• \"Show me thriller books\"`;\n\nreturn [{ json: { reply, intent: 'fallback' } }];"
+      },
+      "id": "fallback-handler",
+      "name": "Fallback Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 900]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// CODE IN JAVASCRIPT (Advanced Processing)\n// ============================================\n// This node can be used for:\n// - OpenAI integration (if API key available)\n// - Advanced NLP processing\n// - Custom logging\n// - Context-aware responses\n// ============================================\n\n// For now, pass through the data\n// To add OpenAI: replace with HTTP Request node\n// calling OpenAI API with the user message\n\nconst systemPrompt = `You are a helpful bookstore assistant for PageTurner Books.\nYou help customers with:\n- Book recommendations from our catalog of 25 books\n- Order tracking (O1001-O1015)\n- Store information (delivery, payment, refunds)\nBe friendly, concise, and use INR (₹) for prices.`;\n\n// Pass through - this node acts as documentation\nreturn $input.all();"
+      },
+      "id": "advanced-code",
+      "name": "Code in JavaScript",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 1040]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "id": "response-node",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1200, 500]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Intent Detection", "type": "main", "index": 0 }]]
+    },
+    "Intent Detection": {
+      "main": [[{ "node": "Switch", "type": "main", "index": 0 }]]
+    },
+    "Switch": {
+      "main": [
+        [{ "node": "Order Handler", "type": "main", "index": 0 }],
+        [{ "node": "Browse Handler", "type": "main", "index": 0 }],
+        [{ "node": "Faq Handler", "type": "main", "index": 0 }],
+        [{ "node": "Recommendation Handler", "type": "main", "index": 0 }],
+        [{ "node": "Category Handler", "type": "main", "index": 0 }],
+        [{ "node": "Greeting Handler", "type": "main", "index": 0 }],
+        [{ "node": "Fallback Handler", "type": "main", "index": 0 }],
+        [{ "node": "Code in JavaScript", "type": "main", "index": 0 }]
+      ]
+    },
+    "Order Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Browse Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Faq Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Recommendation Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Category Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Greeting Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Fallback Handler": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] },
+    "Code in JavaScript": { "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

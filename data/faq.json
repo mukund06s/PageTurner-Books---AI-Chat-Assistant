@@ -1,0 +1,58 @@
+[
+  {
+    "id": "F001",
+    "question": "What are your delivery charges?",
+    "answer": "Delivery is free for orders above ₹499. For orders below ₹499, a flat delivery fee of ₹49 is charged.",
+    "category": "Shipping",
+    "keywords": ["delivery", "charges", "shipping", "cost", "fee", "free delivery"]
+  },
+  {
+    "id": "F002",
+    "question": "How long does delivery take?",
+    "answer": "Orders are delivered within 3-5 working days. Express delivery (1-2 days) is available for select locations at an additional charge.",
+    "category": "Shipping",
+    "keywords": ["delivery", "time", "how long", "days", "when", "arrive", "shipping time"]
+  },
+  {
+    "id": "F003",
+    "question": "Can I cancel my order?",
+    "answer": "Yes, you can cancel your order before it is shipped. Once shipped, cancellation is not possible but you can return it after delivery.",
+    "category": "Orders",
+    "keywords": ["cancel", "cancellation", "cancel order", "stop order"]
+  },
+  {
+    "id": "F004",
+    "question": "Do you offer refunds?",
+    "answer": "Yes, refunds are processed within 5-7 business days after we receive the returned item. The amount is credited to your original payment method.",
+    "category": "Returns",
+    "keywords": ["refund", "money back", "return", "refund policy"]
+  },
+  {
+    "id": "F005",
+    "question": "What payment methods are accepted?",
+    "answer": "We accept UPI (GPay, PhonePe, Paytm), credit/debit cards (Visa, MasterCard, RuPay), net banking, and wallets.",
+    "category": "Payment",
+    "keywords": ["payment", "pay", "upi", "card", "net banking", "method", "accept"]
+  },
+  {
+    "id": "F006",
+    "question": "Do you have cash on delivery?",
+    "answer": "Yes, Cash on Delivery (COD) is available for most locations across India. COD orders may have a small additional fee of ₹20.",
+    "category": "Payment",
+    "keywords": ["cod", "cash on delivery", "cash", "pay on delivery"]
+  },
+  {
+    "id": "F007",
+    "question": "How can I track my order?",
+    "answer": "You can track your order by providing your order ID (e.g., O1001) in the chat. I'll fetch the latest status for you instantly!",
+    "category": "Orders",
+    "keywords": ["track", "tracking", "where", "status", "order status", "check order"]
+  },
+  {
+    "id": "F008",
+    "question": "What genres are available?",
+    "answer": "We offer a wide range of genres including Fiction, Fantasy, Finance, Business, Self-Help, Thriller, History, Biography, Sci-Fi, Productivity, and Spirituality.",
+    "category": "General",
+    "keywords": ["genre", "genres", "category", "categories", "type", "types", "what books"]
+  }
+]

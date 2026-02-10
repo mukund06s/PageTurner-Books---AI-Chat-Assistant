@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# 📚 PageTurner Books - Chat Automation System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> AI-powered bookstore chat assistant built with React, Tailwind CSS, and n8n workflow automation.
 
-## Available Scripts
+![React](https://img.shields.io/badge/React-18-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-3.x-06B6D4)
+![n8n](https://img.shields.io/badge/n8n-Workflow-FF6D5A)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+### Chat Interface
+- 💬 Real-time AI chat with typing simulation
+- 🎤 Voice input (Web Speech API)
+- 🔊 Sound notifications (Web Audio API)
+- 🌙 Dark/Light mode toggle
+- 📱 Fully responsive design
+- 💾 Session memory (localStorage)
+- 📤 Chat export (TXT/JSON)
+- 🔄 Retry on error with fallback
+- 🧠 Context memory (remembers genres, orders, preferences)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Admin Dashboard
+- 📊 Dashboard with stat cards (books, orders, revenue, low stock)
+- 📚 Books table with search and genre filter
+- 📦 Orders table with search and status filter
+- ❓ FAQ management view
+- 📈 Analytics (intent distribution, session stats, genre popularity)
+- 💬 Chat logs viewer with refresh/clear
+- 🔐 Admin authentication (login/logout, remember me)
+- 📥 Data export (JSON)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### n8n Workflow
+- 🔗 Webhook-based architecture
+- 🎯 Rule-based intent detection (7 intents)
+- 📦 Order tracking handler (O1001-O1015)
+- 📚 Book browse/search handler (25 books)
+- ⭐ Recommendation handler (genre-aware)
+- 🏷️ Category handler (11 genres)
+- ❓ FAQ handler (8 FAQs with keyword matching)
+- 👋 Greeting handler (context-aware)
+- ❓ Fallback handler
+- 🔄 Local mock engine fallback when n8n unavailable
 
-### `npm test`
+### Dataset
+- 📚 25 Books (B001-B025) across 11 genres
+- 📦 15 Orders (O1001-O1015) with 4 statuses
+- ❓ 8 FAQs with keyword-based matching
+- 💰 INR (₹) currency
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Tech Stack
 
-### `npm run build`
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, Tailwind CSS, Framer Motion |
+| State | React Hooks, Context API |
+| Routing | React Router v6 |
+| Backend Logic | n8n (webhook workflows) |
+| Data | Local JSON (books, orders, FAQs) |
+| Storage | localStorage, sessionStorage |
+| Voice | Web Speech API |
+| Sound | Web Audio API |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📁 Project Structure

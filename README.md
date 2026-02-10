@@ -62,6 +62,7 @@
 | Sound | Web Audio API |
 
 ## 📁 Project Structure
+
 bookstore-chat-react/
 ├── public/
 │   └── index.html
@@ -129,4 +130,5 @@ bookstore-chat-react/
 ├── tailwind.config.js
 ├── package.json
 └── README.md
+
 

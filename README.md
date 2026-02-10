@@ -63,6 +63,7 @@
 
 ## 📁 Project Structure
 
+```text
 bookstore-chat-react/
 ├── public/
 │   └── index.html

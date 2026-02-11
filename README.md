@@ -79,7 +79,7 @@ node -v
 
 📦 Installation
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/bookstore-chat-react.git
+git clone https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant.git
 
 # Navigate into project
 cd bookstore-chat-react
@@ -139,6 +139,8 @@ http://localhost:5678/webhook-test/bookstore-chat
 
 
 Make sure your chatService.js is pointing to this URL.
+
+
 
 ## 📁 Project Structure
 

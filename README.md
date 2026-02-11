@@ -285,13 +285,13 @@ bookstore-chat-react/
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home](screenshots/home.png)
+![image alt](https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant/blob/eb88cad7143af17bc15a731812326f70339f1b40/screenshots/home.png)
 
 ### 💬 Chat Interface
-![Chat](screenshots/chat.png)
+![image alt](https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant/blob/eb88cad7143af17bc15a731812326f70339f1b40/screenshots/chat.png)
 
 ### ⚙️ Admin Dashboard
-![Admin](screenshots/admin.png)
+![image alt](https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant/blob/eb88cad7143af17bc15a731812326f70339f1b40/screenshots/admin.png)
 
 ### 🔗 n8n Workflow
-![Workflow](screenshots/n8n-workflow.png)
+![image alt](https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant/blob/eb88cad7143af17bc15a731812326f70339f1b40/screenshots/n8n-workflow.png)

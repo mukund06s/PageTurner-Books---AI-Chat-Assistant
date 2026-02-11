@@ -67,69 +67,69 @@
 bookstore-chat-react/
 ├── public/
 │   └── index.html
-│
+
 ├── src/
-│   ├── index.js                 # Entry point
-│   ├── index.css               # Global styles + Tailwind
-│   ├── App.js                  # Routing + providers
-│   │
+│   ├── index.js                    # Entry point
+│   ├── index.css                   # Immersive theme + animations + glassmorphism
+│   ├── App.js                      # Router + Toast Provider + Auth/Theme Providers
+│
 │   ├── components/
+│   │
 │   │   ├── Chat/
-│   │   │   ├── ChatWindow.jsx       # Main chat page
-│   │   │   ├── ChatMessage.jsx      # Message bubbles
-│   │   │   ├── ChatInput.jsx        # Input form
-│   │   │   ├── TypingIndicator.jsx  # Typing dots
-│   │   │   ├── WelcomeScreen.jsx    # Welcome view
-│   │   │   ├── QuickActions.jsx     # Quick action buttons
-│   │   │   └── ErrorMessage.jsx     # Error with retry
+│   │   │   ├── ChatWindow.jsx          # Enhanced chat layout (particles + scroll btn)
+│   │   │   ├── ChatMessage.jsx         # Animated gradient message bubbles
+│   │   │   ├── ChatInput.jsx           # Input form with glow + micro-interactions
+│   │   │   ├── TypingIndicator.jsx     # Animated typing dots
+│   │   │   ├── WelcomeScreen.jsx       # Animated welcome with glow logo
+│   │   │   ├── QuickActions.jsx        # Animated chip-style quick buttons
+│   │   │   ├── ErrorMessage.jsx        # Error with retry (toast integrated)
+│   │   │   └── FloatingParticles.jsx   # NEW: Floating book particles background
 │   │   │
 │   │   ├── Admin/
-│   │   │   ├── AdminDashboard.jsx   # Admin layout
-│   │   │   ├── Sidebar.jsx          # Navigation sidebar
-│   │   │   ├── StatsCards.jsx       # Dashboard stats
-│   │   │   ├── RecentActivity.jsx   # Recent orders/chats
-│   │   │   ├── BooksTable.jsx       # Books catalog
-│   │   │   ├── OrdersTable.jsx      # Orders table
-│   │   │   ├── FaqList.jsx          # FAQ display
-│   │   │   ├── Analytics.jsx        # Analytics dashboard
-│   │   │   └── ChatLogs.jsx         # Chat log viewer
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── StatsCards.jsx
+│   │   │   ├── RecentActivity.jsx
+│   │   │   ├── BooksTable.jsx
+│   │   │   ├── OrdersTable.jsx
+│   │   │   ├── FaqList.jsx
+│   │   │   ├── Analytics.jsx
+│   │   │   └── ChatLogs.jsx
 │   │   │
 │   │   ├── Auth/
-│   │   │   └── LoginPage.jsx        # Admin login
+│   │   │   └── LoginPage.jsx
 │   │   │
 │   │   └── Layout/
-│   │       ├── Header.jsx           # Chat header
-│   │       └── Footer.jsx           # Chat footer
-│   │
+│   │       ├── Header.jsx              # Enhanced header (logo nav + toast UX)
+│   │       └── Footer.jsx              # Enhanced footer with gradient branding
+│
 │   ├── hooks/
-│   │   ├── useChat.js               # Chat logic
-│   │   ├── useAdmin.js              # Admin logic
-│   │   ├── useSound.js              # Sound system
-│   │   ├── useVoiceInput.js         # Voice input
-│   │   └── useDarkMode.js           # Dark mode
-│   │
+│   │   ├── useChat.js                  # Chat logic (toast-based clear + persistent chat)
+│   │   ├── useAdmin.js
+│   │   ├── useSound.js
+│   │   ├── useVoiceInput.js
+│   │   └── useDarkMode.js
+│
 │   ├── services/
-│   │   ├── chatService.js           # Webhook + analytics
-│   │   └── mockResponseEngine.js    # Local fallback
-│   │
+│   │   ├── chatService.js              # Webhook + analytics tracking
+│   │   └── mockResponseEngine.js       # Offline fallback engine
+│
 │   ├── data/
-│   │   ├── booksData.js             # 25 books
-│   │   ├── ordersData.js            # 15 orders
-│   │   └── faqData.js               # 8 FAQs
-│   │
+│   │   ├── booksData.js
+│   │   ├── ordersData.js
+│   │   └── faqData.js
+│
 │   ├── context/
-│   │   ├── ThemeContext.js          # Dark mode
-│   │   └── AuthContext.js           # Authentication
-│   │
+│   │   ├── ThemeContext.js
+│   │   └── AuthContext.js
+│
 │   └── utils/
-│       ├── formatMessage.js         # Markdown formatter
-│       └── exportChat.js            # Chat export
+│       ├── formatMessage.js
+│       └── exportChat.js
 │
 ├── n8n-workflows/
-│   └── bookstore-main.json          # n8n workflow export
+│   └── bookstore-main.json             # n8n workflow export
 │
 ├── tailwind.config.js
-├── package.json
+├── package.json                        # Added: react-hot-toast
 └── README.md
-
-

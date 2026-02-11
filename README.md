@@ -80,6 +80,8 @@ node -v
 
 Setup Guide
 Running the Frontend (React Application)
+
+
 🔹 Option 1 – Use Live Deployment (Recommended)
 
 The application is deployed on Vercel and can be accessed directly:
@@ -90,8 +92,10 @@ https://pageturner-books.vercel.app
 No local setup required.
 
 🔹 Option 2 – Run Locally
+
 Step 1: Clone Repository
 git clone https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant.git
+
 cd PageTurner-Books---AI-Chat-Assistant
 
 Step 2: Install Dependencies
@@ -112,7 +116,8 @@ The backend automation is built using n8n workflow.
 Step 1: Install n8n (If not installed)
 npm install -g n8n
 
-Step 2: Start n8n
+Step 2: Start n8n:
+
 n8n start
 
 
@@ -142,7 +147,7 @@ http://localhost:5678/webhook-test/bookstore-chat
 
 Make sure chatService.js points to this webhook URL.
 
-4.3 Environment Variables
+Environment Variables
 
 Currently, the project does not require complex environment variables.
 

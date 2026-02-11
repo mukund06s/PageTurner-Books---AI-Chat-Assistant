@@ -61,80 +61,6 @@
 | Voice | Web Speech API |
 | Sound | Web Audio API |
 
-## 📁 Project Structure
-
-```text
-bookstore-chat-react/
-├── public/
-│   └── index.html
-
-├── src/
-│   ├── index.js                    # Entry point
-│   ├── index.css                   # Immersive theme + animations + glassmorphism
-│   ├── App.js                      # Router + Toast Provider + Auth/Theme Providers
-│
-│   ├── components/
-│   │
-│   │   ├── Chat/
-│   │   │   ├── ChatWindow.jsx          # Enhanced chat layout (particles + scroll btn)
-│   │   │   ├── ChatMessage.jsx         # Animated gradient message bubbles
-│   │   │   ├── ChatInput.jsx           # Input form with glow + micro-interactions
-│   │   │   ├── TypingIndicator.jsx     # Animated typing dots
-│   │   │   ├── WelcomeScreen.jsx       # Animated welcome with glow logo
-│   │   │   ├── QuickActions.jsx        # Animated chip-style quick buttons
-│   │   │   ├── ErrorMessage.jsx        # Error with retry (toast integrated)
-│   │   │   └── FloatingParticles.jsx   # NEW: Floating book particles background
-│   │   │
-│   │   ├── Admin/
-│   │   │   ├── AdminDashboard.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   ├── StatsCards.jsx
-│   │   │   ├── RecentActivity.jsx
-│   │   │   ├── BooksTable.jsx
-│   │   │   ├── OrdersTable.jsx
-│   │   │   ├── FaqList.jsx
-│   │   │   ├── Analytics.jsx
-│   │   │   └── ChatLogs.jsx
-│   │   │
-│   │   ├── Auth/
-│   │   │   └── LoginPage.jsx
-│   │   │
-│   │   └── Layout/
-│   │       ├── Header.jsx              # Enhanced header (logo nav + toast UX)
-│   │       └── Footer.jsx              # Enhanced footer with gradient branding
-│
-│   ├── hooks/
-│   │   ├── useChat.js                  # Chat logic (toast-based clear + persistent chat)
-│   │   ├── useAdmin.js
-│   │   ├── useSound.js
-│   │   ├── useVoiceInput.js
-│   │   └── useDarkMode.js
-│
-│   ├── services/
-│   │   ├── chatService.js              # Webhook + analytics tracking
-│   │   └── mockResponseEngine.js       # Offline fallback engine
-│
-│   ├── data/
-│   │   ├── booksData.js
-│   │   ├── ordersData.js
-│   │   └── faqData.js
-│
-│   ├── context/
-│   │   ├── ThemeContext.js
-│   │   └── AuthContext.js
-│
-│   └── utils/
-│       ├── formatMessage.js
-│       └── exportChat.js
-│
-├── n8n-workflows/
-│   └── bookstore-main.json             # n8n workflow export
-│
-├── tailwind.config.js
-├── package.json                        # Added: react-hot-toast
-└── README.md
-
-
 🚀 Quick Start
 📋 Prerequisites
 
@@ -212,3 +138,76 @@ http://localhost:5678/webhook-test/bookstore-chat
 
 
 Make sure your chatService.js is pointing to this URL.
+
+## 📁 Project Structure
+
+```text
+bookstore-chat-react/
+├── public/
+│   └── index.html
+
+├── src/
+│   ├── index.js                    # Entry point
+│   ├── index.css                   # Immersive theme + animations + glassmorphism
+│   ├── App.js                      # Router + Toast Provider + Auth/Theme Providers
+│
+│   ├── components/
+│   │
+│   │   ├── Chat/
+│   │   │   ├── ChatWindow.jsx          # Enhanced chat layout (particles + scroll btn)
+│   │   │   ├── ChatMessage.jsx         # Animated gradient message bubbles
+│   │   │   ├── ChatInput.jsx           # Input form with glow + micro-interactions
+│   │   │   ├── TypingIndicator.jsx     # Animated typing dots
+│   │   │   ├── WelcomeScreen.jsx       # Animated welcome with glow logo
+│   │   │   ├── QuickActions.jsx        # Animated chip-style quick buttons
+│   │   │   ├── ErrorMessage.jsx        # Error with retry (toast integrated)
+│   │   │   └── FloatingParticles.jsx   # NEW: Floating book particles background
+│   │   │
+│   │   ├── Admin/
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── StatsCards.jsx
+│   │   │   ├── RecentActivity.jsx
+│   │   │   ├── BooksTable.jsx
+│   │   │   ├── OrdersTable.jsx
+│   │   │   ├── FaqList.jsx
+│   │   │   ├── Analytics.jsx
+│   │   │   └── ChatLogs.jsx
+│   │   │
+│   │   ├── Auth/
+│   │   │   └── LoginPage.jsx
+│   │   │
+│   │   └── Layout/
+│   │       ├── Header.jsx              # Enhanced header (logo nav + toast UX)
+│   │       └── Footer.jsx              # Enhanced footer with gradient branding
+│
+│   ├── hooks/
+│   │   ├── useChat.js                  # Chat logic (toast-based clear + persistent chat)
+│   │   ├── useAdmin.js
+│   │   ├── useSound.js
+│   │   ├── useVoiceInput.js
+│   │   └── useDarkMode.js
+│
+│   ├── services/
+│   │   ├── chatService.js              # Webhook + analytics tracking
+│   │   └── mockResponseEngine.js       # Offline fallback engine
+│
+│   ├── data/
+│   │   ├── booksData.js
+│   │   ├── ordersData.js
+│   │   └── faqData.js
+│
+│   ├── context/
+│   │   ├── ThemeContext.js
+│   │   └── AuthContext.js
+│
+│   └── utils/
+│       ├── formatMessage.js
+│       └── exportChat.js
+│
+├── n8n-workflows/
+│   └── bookstore-main.json             # n8n workflow export
+│
+├── tailwind.config.js
+├── package.json                        # Added: react-hot-toast
+└── README.md

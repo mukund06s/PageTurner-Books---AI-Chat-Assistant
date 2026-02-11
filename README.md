@@ -285,7 +285,7 @@ bookstore-chat-react/
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![image alt](https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant/blob/eb88cad7143af17bc15a731812326f70339f1b40/screenshots/home.png)
+<img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/52be8e7c-d851-45b2-89c5-ecb6fc3b022a" />
 
 ### 💬 Chat Interface
 ![image alt](https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant/blob/eb88cad7143af17bc15a731812326f70339f1b40/screenshots/chat.png)

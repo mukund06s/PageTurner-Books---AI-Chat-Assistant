@@ -63,6 +63,7 @@
 
 
 🚀 Quick Start
+
 📋 Prerequisites
 
 Node.js 18+ (Recommended: 24.x)
@@ -77,8 +78,8 @@ You can check your Node version:
 
 node -v
 
-4. Setup Guide
-4.1 Running the Frontend (React Application)
+Setup Guide
+Running the Frontend (React Application)
 🔹 Option 1 – Use Live Deployment (Recommended)
 
 The application is deployed on Vercel and can be accessed directly:
@@ -104,7 +105,7 @@ Application runs at:
 
 http://localhost:3000
 
-4.2 Importing Workflow into n8n
+Importing Workflow into n8n
 
 The backend automation is built using n8n workflow.
 

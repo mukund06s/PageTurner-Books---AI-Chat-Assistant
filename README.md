@@ -277,5 +277,16 @@ bookstore-chat-react/
 └── README.md
 
 
-Screenshots:
-<img width="1915" height="1079" alt="image" src="https://github.com/user-attachments/assets/b280db8d-b1b2-41c2-a0d0-952c62f6ebdf" />
+## 📸 Screenshots
+
+### 🏠 Home Page
+![Home](screenshots/home.png)
+
+### 💬 Chat Interface
+![Chat](screenshots/chat.png)
+
+### ⚙️ Admin Dashboard
+![Admin](screenshots/admin.png)
+
+### 🔗 n8n Workflow
+![Workflow](screenshots/n8n-workflow.png)

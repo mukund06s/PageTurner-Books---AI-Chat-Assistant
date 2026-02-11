@@ -275,3 +275,7 @@ bookstore-chat-react/
 ├── tailwind.config.js
 ├── package.json                        # Added: react-hot-toast
 └── README.md
+
+
+Screenshots:
+<img width="1915" height="1079" alt="image" src="https://github.com/user-attachments/assets/b280db8d-b1b2-41c2-a0d0-952c62f6ebdf" />

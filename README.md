@@ -77,69 +77,129 @@ You can check your Node version:
 
 node -v
 
-📦 Installation
-# Clone the repository
+4. Setup Guide
+4.1 Running the Frontend (React Application)
+🔹 Option 1 – Use Live Deployment (Recommended)
+
+The application is deployed on Vercel and can be accessed directly:
+
+https://pageturner-books.vercel.app
+
+
+No local setup required.
+
+🔹 Option 2 – Run Locally
+Step 1: Clone Repository
 git clone https://github.com/mukund06s/PageTurner-Books---AI-Chat-Assistant.git
+cd PageTurner-Books---AI-Chat-Assistant
 
-# Navigate into project
-cd bookstore-chat-react
-
-# Install dependencies
+Step 2: Install Dependencies
 npm install
 
-# Start development server
+Step 3: Start Development Server
 npm start
 
 
-App will open at:
+Application runs at:
 
 http://localhost:3000
 
-🧠 How Backend Works
+4.2 Importing Workflow into n8n
 
-This project supports two modes:
+The backend automation is built using n8n workflow.
 
-1️⃣ Without n8n (Default – Mock Mode)
-
-If n8n is not running:
-
-The app automatically uses the local mockResponseEngine.js
-
-All features still work
-
-No configuration required
-
-Perfect for demo and testing.
-
-2️⃣ With n8n (Full Automation Mode – Optional)
-
-Install and run n8n:
-
+Step 1: Install n8n (If not installed)
 npm install -g n8n
+
+Step 2: Start n8n
 n8n start
 
 
-Open editor:
+Open n8n editor:
 
 http://localhost:5678
 
+Step 3: Import Workflow
 
-Then:
+Open n8n Editor
 
-Import workflow from:
+Click Import
+
+Select file:
 
 n8n-workflows/bookstore-main.json
 
 
 Activate the workflow
 
-Webhook URL will be:
+Step 4: Webhook URL
+
+After activation, webhook endpoint will be:
 
 http://localhost:5678/webhook-test/bookstore-chat
 
 
-Make sure your chatService.js is pointing to this URL.
+Make sure chatService.js points to this webhook URL.
 
+4.3 Environment Variables
+
+Currently, the project does not require complex environment variables.
+
+However, for production configuration, the following can be used:
+
+Frontend (.env file)
+REACT_APP_WEBHOOK_URL=http://localhost:5678/webhook-test/bookstore-chat
+
+
+In production, this can point to deployed n8n cloud URL.
+
+Example:
+
+REACT_APP_WEBHOOK_URL=https://your-n8n-instance/webhook/bookstore-chat
+
+5. n8n Workflow Export
+
+The n8n workflow file is included inside the project:
+
+n8n-workflows/bookstore-main.json
+
+Workflow Includes:
+
+Webhook Trigger (POST)
+
+Intent Detection (Code Node – Regex based)
+
+Switch Node (7 Intent Routes)
+
+Order Tracking Handler
+
+Book Search Handler
+
+Recommendation Handler
+
+Genre Handler
+
+FAQ Handler
+
+Greeting Handler
+
+Fallback Handler
+
+Standardized JSON Response
+
+How to Export Workflow (If Required Again)
+
+Inside n8n:
+
+Open Workflow
+
+Click Export
+
+Save as JSON file
+
+This generates:
+
+bookstore-main.json
 
 
 ## 📁 Project Structure

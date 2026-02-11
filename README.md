@@ -133,3 +133,81 @@ bookstore-chat-react/
 ├── tailwind.config.js
 ├── package.json                        # Added: react-hot-toast
 └── README.md
+
+🚀 Quick Start
+📋 Prerequisites
+
+Node.js 18+ (Recommended: 24.x)
+
+npm (comes with Node)
+
+Git
+
+n8n (Optional – app works with local mock fallback)
+
+You can check your Node version:
+
+node -v
+
+📦 Installation
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/bookstore-chat-react.git
+
+# Navigate into project
+cd bookstore-chat-react
+
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+
+App will open at:
+
+http://localhost:3000
+
+🧠 How Backend Works
+
+This project supports two modes:
+
+1️⃣ Without n8n (Default – Mock Mode)
+
+If n8n is not running:
+
+The app automatically uses the local mockResponseEngine.js
+
+All features still work
+
+No configuration required
+
+Perfect for demo and testing.
+
+2️⃣ With n8n (Full Automation Mode – Optional)
+
+Install and run n8n:
+
+npm install -g n8n
+n8n start
+
+
+Open editor:
+
+http://localhost:5678
+
+
+Then:
+
+Import workflow from:
+
+n8n-workflows/bookstore-main.json
+
+
+Activate the workflow
+
+Webhook URL will be:
+
+http://localhost:5678/webhook-test/bookstore-chat
+
+
+Make sure your chatService.js is pointing to this URL.

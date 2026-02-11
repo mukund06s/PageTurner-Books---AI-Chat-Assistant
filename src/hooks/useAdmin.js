@@ -40,24 +40,26 @@ export function useAdmin() {
   // ==========================================
   // LOAD CHAT LOGS ON MOUNT
   // ==========================================
+  // 👇 PUT loadChatLogs HERE
+  const loadChatLogs = useCallback(() => {
+    try {
+      const logs = JSON.parse(localStorage.getItem("chatLogs") || "[]");
+      setChatLogs(logs);
+      console.log(`💬 Chat Logs: ${logs.length}`);
+    } catch (e) {
+      console.error("Failed to load chat logs:", e);
+      setChatLogs([]);
+    }
+  }, []);
+
+  // 👇 THEN useEffect
   useEffect(() => {
     loadChatLogs();
     console.log('✅ Admin dashboard initialized');
     console.log(`📚 Books: ${books.length}`);
     console.log(`📦 Orders: ${orders.length}`);
     console.log(`❓ FAQs: ${faqs.length}`);
-  }, [books.length, orders.length, faqs.length]);
-
-  const loadChatLogs = useCallback(() => {
-    try {
-      const logs = JSON.parse(localStorage.getItem('chatLogs') || '[]');
-      setChatLogs(logs);
-      console.log(`💬 Chat Logs: ${logs.length}`);
-    } catch (e) {
-      console.error('Failed to load chat logs:', e);
-      setChatLogs([]);
-    }
-  }, []);
+  }, [books.length, orders.length, faqs.length, loadChatLogs]);
 
 
   // ==========================================
